@@ -1,4 +1,6 @@
 define("appmenu",["$", "widget", "base", "class", "events","easing","./appmenu-debug.css"],function(require, exports, module){
+
+
 	var $=require("$");
 	var Widget = require("widget");
     require("./appmenu-debug.css");
@@ -23,6 +25,7 @@ define("appmenu",["$", "widget", "base", "class", "events","easing","./appmenu-d
                     return $(val);
                 }
             },
+            defaultIcon:'../../resources/portal/css/img/changnei.png',
             // 是否包含 triggers，用于没有传入 triggers 时，是否自动生成的判断标准
             hasTriggers: true,
             // 触发类型
@@ -51,7 +54,7 @@ define("appmenu",["$", "widget", "base", "class", "events","easing","./appmenu-d
         _initHtml:function(){ //初始化第一级菜单html
             var strhtml="<ul class=\"appmenu-page\">",
                 url="",
-                rows=1,
+                rows=1,iconUrl,
                 css,
                 ItemClass=""
                 data=this.get("model");
@@ -69,7 +72,12 @@ define("appmenu",["$", "widget", "base", "class", "events","easing","./appmenu-d
                 if(data[intCount].url !="undefined" && data[intCount].url != null && data[intCount].url != ""){
                     url="href=\""+ data[intCount].url +" \" target=\"_blank\"";
                 }
-                strhtml+="      <li class=\"appmenu-list-item "+ ItemClass +"\" data-rows=\""+ intCount +"\"><a class=\"appmenu-list-a\" "+ url +" ></a><p>"+ data[intCount]["name"] +"</p></li>"
+                if(data[intCount]["iconUrl"]){
+                    iconUrl=data[intCount]["iconUrl"];
+                }else{
+                    iconUrl=this.get("defaultIcon");
+                }
+                strhtml+="      <li class=\"appmenu-list-item "+ ItemClass +"\" data-rows=\""+ intCount +"\"><a class=\"appmenu-list-a\" "+ url +" ><img src=\""+ iconUrl +"\"></a><p>"+ data[intCount]["name"] +"</p></li>"
                 if (rows ==12) {
                     strhtml += "    </ul>"
                     strhtml += "</li>";
@@ -130,8 +138,17 @@ define("appmenu",["$", "widget", "base", "class", "events","easing","./appmenu-d
         _openSubMenu:function(e){//打开子菜单
             var subs=this.get("subs"),
                 nodeName=e.target.nodeName,
-                index = (nodeName =="LI") ? $(e.target).attr("data-rows") : $(e.target).parent().attr("data-rows");
-
+                index;
+             if (nodeName =="LI") {
+                index=$(e.target).attr("data-rows")
+             }
+             if(nodeName=="IMG"){
+                index=$(e.target).parent().parent().attr("data-rows");
+             }   
+             if(nodeName=="A" || nodeName == "P"){
+                 index=$(e.target).parent().attr("data-rows");
+             }
+           
             this._getSubMenu(index);
         },
         _setSubPosition:function(index){ //改变子菜单pannel的位置
@@ -159,7 +176,7 @@ define("appmenu",["$", "widget", "base", "class", "events","easing","./appmenu-d
             var subs=this.get("subs"),
                 data=this.get("model")[index],
                 strhtml="";
-
+            console.log(index);
             if(data.url !="undefined" && data.url != null && data.url != ""){
 
                 subs.hide();
@@ -209,4 +226,5 @@ define("appmenu",["$", "widget", "base", "class", "events","easing","./appmenu-d
         }
     });
 	module.exports = AppMenu;
+
 })

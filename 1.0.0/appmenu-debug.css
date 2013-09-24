@@ -6,9 +6,9 @@
 .appmenu .appmenu-sub-content{overflow: hidden;height: 176px;width:600px;margin:0 auto;position:relative}
 .appmenu .appmenu-list .appmenu-list-item,.appmenu .appmenu-sub-list .appmenu-sub-list-item{ float:left;  font-size:14px;background:url(img/h2-line.gif) repeat-x bottom;padding-bottom:20px;}
 .appmenu .appmenu-list .appmenu-no-bg{background: none}
-.appmenu-list .appmenu-list-item a,.appmenu-sub-list .appmenu-sub-list-item a{ width:100px; height:103px; background-image:url(img/icon_pic.png); background-repeat:no-repeat;display:block; margin:25px}
+.appmenu-list .appmenu-list-item a{width:100px; height:103px;display: inline-block;*display: inline;*zoom:1;margin: 25px}
+.appmenu-sub-list .appmenu-sub-list-item a{ width:100px; height:103px; background-image:url(img/icon_pic.png); background-repeat:no-repeat;display:block; margin:25px}
 .appmenu-list .appmenu-list-item p,.appmenu-sub-list .appmenu-sub-list-item p{display:block; text-align:center; margin-top:-15px}
-.appmenu-list .appmenu-list-item .appmenu-list-a{background-position:0 -63px}
 .appmenu-list .appmenu-list-item .appmenu-list-b{background-position:-102px -63px}
 .appmenu-sub-list .appmenu-sub-list-item .appmenu-sub-list-c{background-position:-204px -63px}
 .appmenu-nav{position: relative;bottom: 15px;left: 0;width: 100%;z-index: 99;text-align: center;z-index: 12;}
